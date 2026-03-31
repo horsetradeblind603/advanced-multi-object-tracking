@@ -1,4 +1,4 @@
-# Project V1.1: Advanced Multi-Object Tracking with StrongSORT + YOLOv8
+# Project: Advanced Multi-Object Tracking with StrongSORT + YOLOv8
 
 State-of-the-art multi-object tracking pipeline using YOLOv8m detection and 
 StrongSORT with OSNet appearance embeddings, evaluated on MOT17 against a 
