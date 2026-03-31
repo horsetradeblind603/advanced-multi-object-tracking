@@ -2,6 +2,18 @@ from pathlib import Path
 
 import yaml
 
+def fmt(s: dict, b: dict, m: str) -> str:
+    sv   = s.get(m, 0)
+    bv   = b.get(m, 0)
+    d    = sv - bv
+    sign = "+" if d >= 0 else ""
+    return f"{sv:5.1f}/{bv:5.1f}/{sign}{d:.1f}"
+
+def fmt_idsw(s: dict, b: dict, m: str) -> str:
+    sv = int(s.get(m, 0))
+    bv = int(b.get(m, 0))
+    return f"{sv:4d}/{bv:4d}"
+
 
 def load_config(config_path: str = "config/config.yaml") -> dict:
     with open(config_path) as f:
@@ -54,71 +66,35 @@ def main():
     sequences = list(ss.keys())
     metrics   = ["HOTA", "MOTA", "MOTP", "IDF1", "IDSw"]
 
-    print(f"\n{'='*92}")
+    print(f"\n{'='*90}")
     print(f"{'Sequence':<22} "
-          + "".join(f"{'SS':>7}{'BT':>7}{'Δ':>6}" for _ in metrics[:4])
-          + f"  {'IDSw-SS':>7} {'IDSw-BT':>7}")
-    print(f"{'':22} "
-          + "".join(f"{'HOTA':>7}{'':>7}{'':>6}"
-                    if m == 'HOTA' else
-                    f"{m:>7}{'':>7}{'':>6}"
-                    for m in metrics[:4]))
-    print(f"{'-'*92}")
-
-    # Simpler readable layout
-    print(f"\n{'Sequence':<22} "
-          f"{'HOTA':>18} {'MOTA':>18} {'IDF1':>18} {'IDSw':>14}")
-    print(f"{'':22} "
-          f"{'SS / BT / Δ':>18} {'SS / BT / Δ':>18} "
-          f"{'SS / BT / Δ':>18} {'SS / BT':>14}")
-    print(f"{'-'*92}")
+          f"{'HOTA (SS/BT/Δ)':>20} "
+          f"{'MOTA (SS/BT/Δ)':>20} "
+          f"{'IDF1 (SS/BT/Δ)':>20} "
+          f"{'IDSw SS/BT':>12}")
+    print(f"{'-'*90}")
 
     for seq in sequences:
         s = ss.get(seq, {})
         b = bt.get(seq, {})
-        if not s or not b:
+        if not s or not b or seq == "COMBINED":
             continue
 
-        def fmt(m):
-            sv = s.get(m, 0)
-            bv = b.get(m, 0)
-            d  = sv - bv
-            sign = "+" if d >= 0 else ""
-            return f"{sv:5.1f}/{bv:5.1f}/{sign}{d:.1f}"
-
-        def fmt_idsw(m):
-            sv = int(s.get(m, 0))
-            bv = int(b.get(m, 0))
-            return f"{sv:4d}/{bv:4d}"
-
         print(f"{seq:<22} "
-              f"{fmt('HOTA'):>18} "
-              f"{fmt('MOTA'):>18} "
-              f"{fmt('IDF1'):>18} "
-              f"{fmt_idsw('IDSw'):>14}")
+              f"{fmt(s, b, 'HOTA'):>20} "
+              f"{fmt(s, b, 'MOTA'):>20} "
+              f"{fmt(s, b, 'IDF1'):>20} "
+              f"{fmt_idsw(s, b, 'IDSw'):>12}")
 
-    # Combined row
-    sc = ss.get("COMBINED", {})
-    bc = bt.get("COMBINED", {})
     if sc and bc:
-        print(f"{'-'*92}")
-        def fmt(m):
-            sv = sc.get(m, 0)
-            bv = bc.get(m, 0)
-            d  = sv - bv
-            sign = "+" if d >= 0 else ""
-            return f"{sv:5.1f}/{bv:5.1f}/{sign}{d:.1f}"
-        def fmt_idsw(m):
-            sv = int(sc.get(m, 0))
-            bv = int(bc.get(m, 0))
-            return f"{sv:4d}/{bv:4d}"
+        print(f"{'-'*90}")
         print(f"{'COMBINED':<22} "
-              f"{fmt('HOTA'):>18} "
-              f"{fmt('MOTA'):>18} "
-              f"{fmt('IDF1'):>18} "
-              f"{fmt_idsw('IDSw'):>14}")
+              f"{fmt(sc, bc, 'HOTA'):>20} "
+              f"{fmt(sc, bc, 'MOTA'):>20} "
+              f"{fmt(sc, bc, 'IDF1'):>20} "
+              f"{fmt_idsw(sc, bc, 'IDSw'):>12}")
 
-    print(f"{'='*92}")
+    print(f"{'='*90}")
     print(f"\nSS = StrongSORT | BT = ByteTrack | Δ = SS minus BT\n")
 
     # Save
